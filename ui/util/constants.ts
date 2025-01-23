@@ -1,5 +1,8 @@
 import { UiNode } from "@ory/client";
 
+export const WEBAUTHN_AUTOLOGIN_KEY = "webauthn_autologin";
+export const WEBAUTHN_AUTOLOGIN_VALUE = "true";
+
 // see https://www.ory.sh/docs/kratos/concepts/ui-messages
 export const ORY_LABEL_ID_ADD_SECURITY_KEY = 1050012;
 export const ORY_LABEL_ID_NAME_OF_THE_SECURITY_KEY = 1050013;
@@ -14,6 +17,7 @@ const ORY_LABEL_USE_BACKUP_CODE = 1010010;
 const ORY_LABEL_SIGN_IN_EMAIL_INPUT = 1070002;
 const ORY_LABEL_SIGN_IN_WITH_PASSWORD = 1010022;
 const ORY_LABEL_CONTINUE_PASSWORD_RESET = 1070009;
+const ORY_LABEL_SIGN_IN_WITH_HARDWARE_KEY = 1010008;
 
 type NodeWithLabel = UiNode & { meta: { label: object } };
 
@@ -44,5 +48,10 @@ export const isSignInEmailInput = (node: UiNode): node is NodeWithLabel =>
 export const isSignInWithPassword = (node: UiNode): node is NodeWithLabel =>
   node.meta.label?.id === ORY_LABEL_SIGN_IN_WITH_PASSWORD;
 
-export const isContinueWithPasswordReset = (node: UiNode): node is NodeWithLabel =>
+export const isContinueWithPasswordReset = (
+  node: UiNode,
+): node is NodeWithLabel =>
   node.meta.label?.id === ORY_LABEL_CONTINUE_PASSWORD_RESET;
+
+export const isSignInWithHardwareKey = (node: UiNode): node is NodeWithLabel =>
+  node.meta.label?.id === ORY_LABEL_SIGN_IN_WITH_HARDWARE_KEY;
