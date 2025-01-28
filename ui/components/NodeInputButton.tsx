@@ -2,7 +2,11 @@ import { getNodeLabel } from "@ory/integrations/ui";
 import { Button } from "@canonical/react-components";
 import React, { FC, FormEvent } from "react";
 import { NodeInputProps } from "./helpers";
-import { ORY_LABEL_ID_ADD_SECURITY_KEY } from "../util/constants";
+import {
+  ORY_LABEL_ID_ADD_SECURITY_KEY,
+  WEBAUTHN_AUTOLOGIN_KEY,
+  WEBAUTHN_AUTOLOGIN_VALUE,
+} from "../util/constants";
 
 const getWebAuthnPayload = (evalCode: string): unknown => {
   const tmp = evalCode
@@ -51,9 +55,12 @@ export const NodeInputButton: FC<NodeInputProps> = ({
   };
 
   // automatically start the webauthn login
+  const isWebAuthnAutoLogin =
+    localStorage.getItem(WEBAUTHN_AUTOLOGIN_KEY) === WEBAUTHN_AUTOLOGIN_VALUE;
+  const isContinueNode = getNodeLabel(node) === "Continue";
   if (
     onClick?.startsWith("window.oryWebAuthnLogin(") &&
-    getNodeLabel(node) === "Continue"
+    (isWebAuthnAutoLogin || isContinueNode)
   ) {
     startWebAuthnLogin();
   }
