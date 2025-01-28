@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.21.0](https://github.com/canonical/identity-platform-login-ui/compare/v0.20.0...v0.21.0) (2025-01-28)
+
+
+### Features
+
+* add endpoint to get sequencing mode ([dd6c524](https://github.com/canonical/identity-platform-login-ui/commit/dd6c524ae5ec15640fc177709a396f86811a31cc))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @canonical/react-components to v1.9.0 ([89d2842](https://github.com/canonical/identity-platform-login-ui/commit/89d28425f33b3aea1e7f947559cbb898db955b56))
+* **deps:** update dependency @ory/client to v1.16.0 ([7693ca2](https://github.com/canonical/identity-platform-login-ui/commit/7693ca240992ec4b31c01601578ef330332210e7))
+* **deps:** update dependency vanilla-framework to v4.19.0 ([fbd505c](https://github.com/canonical/identity-platform-login-ui/commit/fbd505cdcb6935118047a5c78e2ac128dad1f756))
+* **deps:** update dependency vanilla-framework to v4.20.0 ([ff2ec04](https://github.com/canonical/identity-platform-login-ui/commit/ff2ec045dc7766053bbcd8b9803057c231b2bd5b))
+* **deps:** update dependency vanilla-framework to v4.20.1 ([826300c](https://github.com/canonical/identity-platform-login-ui/commit/826300ca990cf3c7b8922df054395ad9f221aee1))
+* **deps:** update dependency vanilla-framework to v4.20.2 ([359c55d](https://github.com/canonical/identity-platform-login-ui/commit/359c55d5373f877b90342199c3c122f034848615))
+* **deps:** update dependency vanilla-framework to v4.20.3 ([a30a6cc](https://github.com/canonical/identity-platform-login-ui/commit/a30a6cccf4b4eb2eb52d80a306c9e0f540649268))
+
 ## [0.20.0](https://github.com/canonical/identity-platform-login-ui/compare/v0.19.3...v0.20.0) (2025-01-13)
 
 
