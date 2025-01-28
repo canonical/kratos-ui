@@ -33,7 +33,7 @@ const DeviceCode: NextPage = () => {
       event.preventDefault();
 
       const formData = new FormData(event.currentTarget);
-      const userCode = formData.get("code");
+      const userCode = formData.get("code") as string;
       acceptUserCode(String(userCode), String(challenge)).catch(
         (error: AxiosError) => {
           // TODO(nsklikas): Refactor when proper error handling is
