@@ -1,6 +1,6 @@
 version: '3.7'
 include:
-  - docker-compose.dev.yml
+  - docker-compose.ldap.yml
 services:
   identity-platform-login-ui:
     image: ghcr.io/canonical/identity-platform-login-ui:latest

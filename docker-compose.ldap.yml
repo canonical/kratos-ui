@@ -1,0 +1,73 @@
+version: "3.7"
+include:
+  - docker-compose.dev.yml
+services:
+    hydra-client:
+        image: curlimages/curl:7.81.0
+        command: |
+            -X POST http://hydra-ldap:4445/admin/clients
+            -H 'Content-Type: application/json'
+            -d '{
+                "client_id": "test-client",
+                "client_secret": "test-secret",
+                "scope": "openid profile email roles",
+                "redirect_uris": ["http://localhost:4433/self-service/methods/oidc/callback/LDAP"]
+            }'
+        networks:
+            - intranet
+        restart: on-failure
+        depends_on:
+            - hydra-ldap
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://hydra-ldap:4445"]
+            interval: 10s
+            timeout: 10s
+            retries: 10
+    hydra-ldap:
+        image: oryd/hydra:v2.2.0
+        command: serve -c /etc/config/hydra/hydra.ldap.yml all --dev
+        volumes:
+          - type: bind
+            source: ./docker/hydra
+            target: /etc/config/hydra
+        networks:
+            - intranet
+        ports:
+            - "4464:4444"
+            - "4465:4445"
+        deploy:
+            restart_policy:
+                condition: on-failure
+        depends_on:
+            - werther
+    werther:
+        image: nsklikas/werther:latest
+        environment:
+            WERTHER_IDENTP_HYDRA_URL: http://hydra-ldap:4445
+            WERTHER_LDAP_ENDPOINTS: ldap:389
+            WERTHER_LDAP_BINDDN: cn=admin,dc=example,dc=com
+            WERTHER_LDAP_BINDPW: password
+            WERTHER_LDAP_BASEDN: "dc=example,dc=com"
+            WERTHER_LDAP_ROLE_BASEDN: "ou=AppRoles,dc=example,dc=com"
+        networks:
+            - intranet
+        ports:
+            - "8082:8080"
+        deploy:
+            restart_policy:
+                condition: on-failure
+        depends_on:
+            - ldap
+    ldap:
+        image: pgarrett/ldap-alpine
+        volumes:
+            - "./docker/ldap:/ldif/"
+        networks:
+            - intranet
+        ports:
+            - "389:389"
+        deploy:
+            restart_policy:
+                condition: on-failure
+networks:
+    intranet:

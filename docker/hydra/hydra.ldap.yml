@@ -1,0 +1,49 @@
+serve:
+  cookies:
+    same_site_mode: Strict
+    names:
+      login_csrf: "hydra_ldap"
+      consent_csrf: "hydra_ldap"
+      session: "hydra_ldap"
+  admin:
+    cors:
+      enabled: true
+      allowed_origins:
+        - "*"
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - "*"
+
+log:
+  leak_sensitive_values: true
+  level: debug
+
+oauth2:
+  expose_internal_errors: true
+
+strategies:
+  access_token: jwt
+  jwt:
+    scope_claim: list
+  scope: exact
+
+urls:
+  self:
+    issuer: http://hydra-ldap:4444
+    public: http://localhost:4464
+  consent: http://localhost:8082/auth/consent
+  login: http://localhost:8082/auth/login
+  error: http://localhost:8082/auth/oidc_error
+
+webfinger:
+  oidc_discovery:
+    token_url: http://hydra-ldap:4444/oauth2/token
+    auth_url: http://localhost:4464/oauth2/auth
+
+dsn: memory
+
+secrets:
+  system:
+    - youReallyNeedToChangeThis

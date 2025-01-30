@@ -1,0 +1,25 @@
+dn: uid=aaa,ou=Users,dc=example,dc=com
+objectClass: inetOrgPerson
+cn: John Doe
+sn: Doe
+uid: aaa
+userPassword: 123
+mail: a@a.com
+ou: Users
+
+dn: ou=AppRoles,dc=example,dc=com
+objectClass: organizationalunit
+ou: AppRoles
+description: AppRoles
+
+dn: ou=App1,ou=AppRoles,dc=example,dc=com
+objectClass: organizationalunit
+ou: App1
+description: App1
+
+dn: cn=traveler,ou=App1,ou=AppRoles,dc=example,dc=com
+objectClass: groupofnames
+cn: traveler
+description: traveler
+member: uid=aaa,ou=Users,dc=example,dc=com
+

@@ -90,6 +90,14 @@ selfservice:
                   mapper_url: "file:///etc/config/kratos/schema.jsonnet"
                   scope: ["user:email"]
                   label: Github
+                - id: "LDAP"
+                  provider: "generic"
+                  mapper_url: "file:///etc/config/kratos/schema.jsonnet"
+                  scope: ["openid", "profile", "email", "roles"]
+                  label: LDAP
+                  issuer_url: http://hydra-ldap:4444
+                  client_id: test-client
+                  client_secret: test-secret
 courier:
     smtp:
         connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
