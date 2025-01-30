@@ -1,23 +1,19 @@
 name: identity-platform-login-ui
-
 base: bare
 build-base: ubuntu@22.04
-version: '0.20.0' # x-release-please-version
+version: 0.21.1
 summary: Canonical Identity platform login UI
 description: |
   This is the Canonical Identity platform login UI used for connecting
   Ory Kratos with Ory Hydra.
 license: Apache-2.0
-
 platforms:
-  amd64:
-
+  amd64: null
 services:
   login-ui:
     override: replace
     command: /usr/bin/identity-platform-login-ui serve
     startup: enabled
-
 parts:
   go-build:
     plugin: go
@@ -29,17 +25,23 @@ parts:
     build-packages:
       - make
       - git
-    override-build: |
+    override-build: >
       make npm-build build
-      install -D -m755 app ${CRAFT_PART_INSTALL}/opt/identity-platform-login-ui/bin/app
+
+      install -D -m755 app
+      ${CRAFT_PART_INSTALL}/opt/identity-platform-login-ui/bin/app
     organize:
       opt/identity-platform-login-ui/bin/app: usr/bin/identity-platform-login-ui
     stage-packages:
       - base-files_var
-
   deb-security-manifest:
     plugin: nil
-    override-prime: |
+    override-prime: >
       set -x
+
       mkdir -p $CRAFT_PRIME/usr/share/rocks/
-      (echo "# os-release" && cat /etc/os-release && echo "# dpkg-query" && dpkg-query --admindir=$CRAFT_PRIME/var/lib/dpkg/ -f '${db:Status-Abbrev},${binary:Package},${Version},${source:Package},${Source:Version}\n' -W) > $CRAFT_PRIME/usr/share/rocks/dpkg.query
+
+      (echo "# os-release" && cat /etc/os-release && echo "# dpkg-query" &&
+      dpkg-query --admindir=$CRAFT_PRIME/var/lib/dpkg/ -f
+      '${db:Status-Abbrev},${binary:Package},${Version},${source:Package},${Source:Version}\n'
+      -W) > $CRAFT_PRIME/usr/share/rocks/dpkg.query
